@@ -2,28 +2,30 @@
 
 # import modules
 import time
+import threading
 from tkinter import *
 from random import *
-
-# colors for each gradient.
-arrayColores = ['#E50000','#DD0008','#D60010','#CE0018','#C70020','#C00029','#B80031','#B10039','#A90041','#A2004A','#9B0052','#93005A','#8C0062','#84006A','#7D0073','#76007B','#6E0083','#67008B','#600094','#58009C','#5100A4','#4900AC','#4200B4','#3B00BD','#3300C5','#2C00CD','#2400D5','#1D00DE','#1600E6','#0E00EE','#0700F6','#0000FF']
-
-# array for each color of the gradient
-gradientList = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+from thermostat import *
 
 def createAWindow():
 	global arrayColores
 	global gradientList
+	global numberOfGradients
 	
 	# this creates the main window.
 	window = Tk()
 	window.geometry('1000x600+10+10')
 	canvas = Canvas(window, width=900, height=500)
+	
+	createButton(150,120)
+	
+	labelTimer = uglyLabel(window)
+	
 	canvas.pack()
 	window.title('generic tkinter window')
 	
 	# This draws the thermometer. the range indicates how many gradients will be drawn.
-	for x in range (0,32):
+	for x in range (0,numberOfGradients):
 		# modify only the xStartval to indicate where it shoul start
 		xStartval = 30
 		# modify the rectangleHeight value to indicate the height of the gradient
@@ -36,9 +38,6 @@ def createAWindow():
 		colorito = str(arrayColores[31 - x])
 		# this initializes each gradient
 		gradientList[x] = canvas.create_rectangle(xStartval, yStartval, xFinVal, yFinVal, width=5 , fill=colorito,outline=colorito)
-	
-	createButton(150,120)
-	createUglyText(200,200)
 	window.mainloop()
 
 # this creates a button 
@@ -46,20 +45,23 @@ def createButton(xPos,yPos):
 	mbutton = Button(text='Button Example',state=DISABLED).place(x=xPos,y=yPos)
 
 # this creates an ugly string with text
-def createUglyText(xPos,yPos):
-	textToInput = 'Text Example'
-	mLable = Label(text=textToInput,font=('bold'),fg='#00d7f3',bg='#ffffff').place(x=xPos,y=yPos)
+class uglyLabel:
+	def __init__(self,parent):
+		self.seconds = 0
+		self.label = Label(parent, text="0 s", font="Arial 30", width=10,fg='#00d7f3',bg='#ffffff' )
+		#self.label = Label(parent, text="0 s",font=('bold'),fg='#00d7f3',bg='#ffffff').place(x=xPos,y=yPos)
+		self.label.pack()
+		self.label.after(1000, self.refreshLabel)
+		
+	def refreshLabel(self):
+		self.seconds += 1
+		self.label.configure(text="%i s" % self.seconds)
+		self.label.after(1000, self.refreshLabel)
 
-ThreadGUI = threading.Thread(target = createAWindow)
+Thread_GUI = threading.Thread(target = createAWindow)
 
-
-
-
+Thread_GUI.start()
 
 # this initializes the main window and the whole GUI.
 
-
-
 #time.sleep(60)
-
-
