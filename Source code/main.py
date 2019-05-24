@@ -4,20 +4,10 @@ import time
 from thermostat import *
 
 oddNon = 0
-
-tk = Tk()
-tk.title("Monitor")
-tk.resizable(0,0)
-tk.wm_attributes("-topmost",1)
-canvas = Canvas(tk, width = 500, height = 500, bd = 0, highlightthickness = 0, background = '#FFFFFF')
-canvas.pack()
-tk.update()
-
 GradientList = []
 xWidth = 40
 
-
-
+# Gradient class for objects with different color.
 class Gradient:
 	
 	IsObjectHidden = 0
@@ -42,8 +32,13 @@ class Gradient:
 		else:
 			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill='#FFFFFF',outline='#FFFFFF')
 
+# Start program
 
-
+tk = Tk()
+tk.title("Monitor for sensor stuff")
+canvas = Canvas(tk, width = 500, height = 500, bd = 0, highlightthickness = 0, background = '#FFFFFF')
+canvas.pack()
+tk.update()
 
 # Initialize gradients in a list
 # the variable xWidth is used to determine the width of each gradient.
@@ -81,25 +76,20 @@ GradientList.append(Gradient(canvas,0,116,xWidth,120,2))
 GradientList.append(Gradient(canvas,0,120,xWidth,124,1))
 GradientList.append(Gradient(canvas,0,124,xWidth,128,0))
 
-
-
 while 1:
 
 	if ( oddNon == 1):
 		for y in range (0,32):
 			GradientList[y].IsObjectHidden = 1
-		for y in range (0,32):
 			GradientList[y].draw(canvas)
 		oddNon = 0
 
 	else:
-		
 		for y in range (0,32):
 			GradientList[y].IsObjectHidden = 0
-		for y in range (0,32):
 			GradientList[y].draw(canvas)
 		oddNon = 1
 	
 	tk.update_idletasks()
 	tk.update()
-	time.sleep(0.5)
+	time.sleep(0.1)
