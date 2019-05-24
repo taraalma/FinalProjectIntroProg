@@ -7,36 +7,11 @@ oddNon = 0
 GradientList = []
 xWidth = 40
 
-# Gradient class for objects with different color.
-class Gradient:
-	
-	IsObjectHidden = 0
-	
-	def __init__(self, canvas, xStartval, yStartval, xFinVal, yFinVal, x):
-		
-		self.xStartingValue  = xStartval
-		self.yStartingValue  = yStartval
-		self.xFinalValue 	 = xFinVal
-		self.yFinalValue 	 = yFinVal
-		self.GradientColor	 = x
-		
-		self.draw(canvas)
-		
-	def draw(self, canvas):
-		global arrayColores
-		
-		gradientObjectColor = str(arrayColores[32 - self.GradientColor])
-		self.canvas = canvas
-		if (self.IsObjectHidden == 0):
-			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill=gradientObjectColor,outline=gradientObjectColor)
-		else:
-			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill='#FFFFFF',outline='#FFFFFF')
-
 # Start program
-
 tk = Tk()
 tk.title("Monitor for sensor stuff")
-canvas = Canvas(tk, width = 500, height = 500, bd = 0, highlightthickness = 0, background = '#FFFFFF')
+
+canvas = Canvas(tk, width = (xWidth + 5), height = 125, bd = 0, highlightthickness = 0, bg = '#FFFFFF')
 canvas.pack()
 tk.update()
 
@@ -76,6 +51,9 @@ GradientList.append(Gradient(canvas,0,116,xWidth,120,2))
 GradientList.append(Gradient(canvas,0,120,xWidth,124,1))
 GradientList.append(Gradient(canvas,0,124,xWidth,128,0))
 
+labelGradient = Label( tk, text="Temp: ", font ="Helvetica", anchor= SW,bg='#FFFFFF')
+labelGradient.pack()
+
 while 1:
 
 	if ( oddNon == 1):
@@ -92,4 +70,4 @@ while 1:
 	
 	tk.update_idletasks()
 	tk.update()
-	time.sleep(0.1)
+	time.sleep(0.68)
