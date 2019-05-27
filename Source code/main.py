@@ -9,20 +9,37 @@ xWidth = 40
 
 # Start program
 tk = Tk()
-tk.title("Monitor for sensor stuff")
+tk.title("Monitor for sensing stuff")
 
 # Insert frame
 frame = Frame(tk)
 frame.grid(row=0,column=0, sticky="n")
 
 # Insert canvas for the temperature gradient
-canvas = Canvas(tk, width = (xWidth + 0), height = 150, bd = 0, highlightthickness = 0, bg = '#F0F0F0')
-canvas.grid(row=0,column=0)
+canvas = Canvas(tk, width = (xWidth + 0), height = 128, bd = 0, highlightthickness = 0, bg = '#F0F0F0')
+canvas.grid(row=0,column=0,sticky="W")
 
 # Insert label for temperature
-labelSpace0=Label(frame, text=" ",height=11,width=10).grid(row=1,column=0)
+labelSpacea=Label(frame, text="",height=1,width=5).grid(row=ROW_1,column=COLUMN_0)
+labelSpaceb=Label(frame, text="",height=1,width=5).grid(row=ROW_2,column=COLUMN_0)
+labelSpacec=Label(frame, text="",height=1,width=5).grid(row=ROW_3,column=COLUMN_0)
+labelSpaced=Label(frame, text="",height=1,width=5).grid(row=ROW_4,column=COLUMN_0)
+labelSpacee=Label(frame, text="",height=1,width=5).grid(row=ROW_5,column=COLUMN_0)
+labelSpacef=Label(frame, text="",height=3,width=5).grid(row=ROW_6,column=COLUMN_0)
+label0     =Label( frame, text=" Temp:", anchor= SE,bg='#F0F0F0').grid(row=7,column=0, sticky="W")
 
-label0=Label( frame, text="      Temp:", anchor= SE,bg='#F0F0F0').grid(row=2,column=0, sticky="W")
+# Insert spaces for the Light sensor widget.
+label1=Label(frame, text="  ",height=1,width=5).grid(row=ROW_5,column=COLUMN_1)
+label2=Label(frame, text="  ",height=1,width=5).grid(row=ROW_5,column=COLUMN_1)
+# Insert light sensor widget
+labelSpace0=Label(frame, text="",height=1,width=5).grid(row=ROW_1,column=COLUMN_2)
+labelSpace9=Label(frame, text="",height=1,width=5).grid(row=ROW_2,column=COLUMN_2)
+labelSpace8=Label(frame, text="",height=1,width=5).grid(row=ROW_3,column=COLUMN_2)
+labelSpace7=Label(frame, text="",height=1,width=5).grid(row=ROW_4,column=COLUMN_2)
+labelSpace6=Label(frame, text="",height=1,width=5).grid(row=ROW_5,column=COLUMN_2)
+labelSpace5=Label(frame, text="",height=3,width=5).grid(row=ROW_6,column=COLUMN_2)
+label3=Label( frame, text="Light sensor", anchor= SE,bg='#F0F0F0').grid(row=ROW_7,column=COLUMN_2, sticky="E")
+
 
 tk.update()
 
