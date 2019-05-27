@@ -12,8 +12,31 @@ tk = Tk()
 tk.title("Monitor for sensor stuff")
 
 canvas = Canvas(tk, width = (xWidth + 5), height = 125, bd = 0, highlightthickness = 0, bg = '#FFFFFF')
-canvas.pack()
+canvas.grid(row=0,column=1)
+
+#canvas.pack()
 tk.update()
+
+
+entry = Entry(tk)
+stvar=StringVar()
+stvar.set("one")
+frame = Frame(tk)
+frame.grid(row=0,column=0, sticky="n")
+
+option=OptionMenu(frame, stvar, "one", "two", "three")
+label1=Label(frame, text="Figure").grid(row=0,column=0, sticky="nw")
+label2=Label(frame, text="X").grid(row=1,column=0, sticky="w")
+label3=Label(frame, text="Y").grid(row=2,column=0, sticky="w")
+labelGradient = Label( frame, text="Temp: ", font ="Helvetica", anchor= SW,bg='#FFFFFF').grid(row=3,column=0, sticky="w")
+
+option.grid(row=0,column=1,sticky="nwe")
+entry = Entry(frame).grid(row = 1,column = 1,sticky = E+ W)
+entry1 = Entry(frame).grid(row = 2,column = 1, sticky = E)
+Button1=Button(frame,text="Draw").grid(row = 3,column = 1, sticky = "we")
+figure1=canvas.create_rectangle(80, 80, 120, 120, fill="blue")
+
+
 
 # Initialize gradients in a list
 # the variable xWidth is used to determine the width of each gradient.
@@ -51,8 +74,8 @@ GradientList.append(Gradient(canvas,0,116,xWidth,120,2))
 GradientList.append(Gradient(canvas,0,120,xWidth,124,1))
 GradientList.append(Gradient(canvas,0,124,xWidth,128,0))
 
-labelGradient = Label( tk, text="Temp: ", font ="Helvetica", anchor= SW,bg='#FFFFFF')
-labelGradient.pack()
+
+#labelGradient.pack()
 
 while 1:
 
