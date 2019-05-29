@@ -52,28 +52,3 @@ class Gradient:
 			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill=gradientObjectColor,outline=gradientObjectColor)
 		else:
 			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill='#F0F0F0',outline='#F0F0F0')
-
-class Gui():
-	def __init__(self, tk):
-		self.tk=tk
-		self.entry = Entry(tk)
-		stvar=StringVar()
-		stvar.set("one")
-
-		self.canvas=Canvas(tk, width=300, height=200, background='white')
-		self.canvas.grid(row=0,column=1)
-
-		frame = Frame(self.tk)
-		frame.grid(row=0,column=0, sticky="n")
-
-		self.option=OptionMenu(frame, stvar, "one", "two", "three")
-		label1=Label(frame, text="Figure").grid(row=0,column=0, sticky="nw")
-		label2=Label(frame, text="X").grid(row=1,column=0, sticky="w")
-		label3=Label(frame, text="Y").grid(row=2,column=0, sticky="w")
-		self.option.grid(row=0,column=1,sticky="nwe")
-		entry = Entry(frame).grid(row = 1,column = 1,sticky = E+ W)
-		entry1 = Entry(frame).grid(row = 2,column = 1, sticky = E)
-		Button1=Button(frame,text="Draw").grid(row = 3,column = 1, sticky = "we")
-		figure1=self.canvas.create_rectangle(80, 80, 120, 120, fill="blue")
-
-		#Grid.columnconfigure(self.tk,1,weight=1, size=200)
