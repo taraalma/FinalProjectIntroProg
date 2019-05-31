@@ -7,9 +7,9 @@ from thermostat import *
 
 # Start serial communications
 
-UsarSerial = False
+UsarSerial = True
 if ( UsarSerial == True):
-	ser = serial.Serial("COM10", 57600)
+	ser = serial.Serial("COM16", 57600)
 oddNon = 0
 GradientList = []
 xWidth = 40
@@ -105,14 +105,8 @@ tk.update()
 
 while 1:
 	
-	maxAmount = maxAmount + 1
-	AnyColourYouLike += 1
-	
-	if ( UsarSerial == True):
-		pass
-	else:
-		if ( AnyColourYouLike == 32 ):
-			AnyColourYouLike = 1
+	 # maxAmount = maxAmount + 1
+	# AnyColourYouLike = AnyColourYouLike + 1
 	
 	if ( UsarSerial == True):
 		# The actual value from 0 to 32 is char
@@ -121,13 +115,8 @@ while 1:
 		char = int((cc[2:][:-5]))
 		print ( char )
 	
-	if ( maxAmount == 32 ):
-		maxAmount = 0
-		for y in range (0,32):
-			GradientList[(31-y)].IsObjectHidden = 1
-			GradientList[(31-y)].draw(canvas)
 	
-	for y in range (0,maxAmount):
+	for y in range (0,char):
 		GradientList[(31-y)].IsObjectHidden = 0
 		GradientList[(31-y)].draw(canvas)
 	
@@ -135,11 +124,16 @@ while 1:
 	if ( UsarSerial == True):
 		LightSensorList[0].changeColour = char
 	else:
-		LightSensorList[0].changeColour = AnyColourYouLike	
+		LightSensorList[0].changeColour = char	
 	LightSensorList[0].draw(canvas2)
 		
 	
 	tk.update_idletasks()
 	tk.update()
+	
 
-	time.sleep(0.1)
+	time.sleep(0.5)
+	
+	for y in range (0,32):
+		GradientList[(31-y)].IsObjectHidden = 1
+		GradientList[(31-y)].draw(canvas)

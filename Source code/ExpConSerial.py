@@ -7,7 +7,7 @@ from thermostat import *
 
 # Start serial communications
 
-ser = serial.Serial("COM10", 57600)
+ser = serial.Serial("COM6", 57600)
 oddNon = 0
 GradientList = []
 xWidth = 40

@@ -1,5 +1,5 @@
 import serial
-ser = serial.Serial("COM10", 57600)
+ser = serial.Serial("COM16", 57600)
 
 while True:
 	raw = ser.readline()
