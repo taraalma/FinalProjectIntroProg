@@ -1,8 +1,13 @@
-from tkinter import *
-import random
 import time
+import serial
+import threading
+import random
+from tkinter import *
 from thermostat import *
 
+# Start serial communications
+
+ser = serial.Serial("COM10", 57600)
 oddNon = 0
 GradientList = []
 xWidth = 40
@@ -89,20 +94,24 @@ tk.update()
 
 while 1:
 	
-	maxAmount = maxAmount + 1
+	for y in range (0,32):
+		GradientList[y].__del__()
 	
-	if ( maxAmount == 32 ):
-		maxAmount = 0
-		for y in range (0,32):
-			GradientList[(31-y)].IsObjectHidden = 1
-			GradientList[(31-y)].draw(canvas)
+	raw = ser.readline()
+	cc  = str(raw)
+	char = int((cc[2:][:-5]))
+	print ( char )
+	
+	for y in range (char,31):
+		GradientList[(31-y)].IsObjectHidden = 1
+		GradientList[(31-y)].draw(canvas)
 		
 		
-	for y in range (0,maxAmount):
+	for y in range (0,char):
 		GradientList[(31-y)].IsObjectHidden = 0
 		GradientList[(31-y)].draw(canvas)
 	
 	tk.update_idletasks()
 	tk.update()
-
-	time.sleep(0.5)
+	time.sleep(2)
+	
