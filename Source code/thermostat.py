@@ -50,5 +50,8 @@ class Gradient:
 			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill=gradientObjectColor,outline=gradientObjectColor)
 		else:
 			self.id = canvas.create_rectangle(self.xStartingValue, self.yStartingValue, self.xFinalValue, self.yFinalValue, width=5 , fill='#F0F0F0',outline='#F0F0F0')
+	def changeColour(self, colour):
+		self.GradientColor = colour
+		self.draw
 	def __del__(self):
 		pass

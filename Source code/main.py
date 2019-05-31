@@ -1,11 +1,19 @@
-from tkinter import *
-import random
 import time
+import serial
+import threading
+import random
+from tkinter import *
 from thermostat import *
 
+# Start serial communications
+
+UsarSerial = False
+if ( UsarSerial == True):
+	ser = serial.Serial("COM10", 57600)
 oddNon = 0
 GradientList = []
 xWidth = 40
+LightSensorList = []
 
 # Start program
 tk = Tk()
@@ -18,6 +26,10 @@ frame.grid(row=0,column=0, sticky="n")
 # Insert canvas for the temperature gradient
 canvas = Canvas(tk, width = (xWidth + 0), height = 128, bd = 0, highlightthickness = 0, bg = '#F0F0F0')
 canvas.grid(row=0,column=0,sticky="W")
+
+canvas2 = Canvas(tk, width = (50), height = 50, bd = 0, highlightthickness = 0, bg = '#FFFFFF')
+canvas2.grid(row=ROW_0,column=COLUMN_2,sticky="W")
+
 
 # Insert label for temperature
 labelSpacea=Label(frame, text="",height=1,width=5).grid(row=ROW_1,column=COLUMN_0)
@@ -79,7 +91,11 @@ GradientList.append(Gradient(canvas,0,116,xWidth,120,2))
 GradientList.append(Gradient(canvas,0,120,xWidth,124,1))
 GradientList.append(Gradient(canvas,0,124,xWidth,128,0))
 
+# def __init__(self, canvas, xStartval, yStartval, xFinVal, yFinVal, x):
+LightSensorList.append(Gradient(canvas2,0,0,30,30,4))
+
 maxAmount = 1
+AnyColourYouLike = 1
 
 for y in range (0,32):
 	GradientList[(31-y)].IsObjectHidden = 1
@@ -90,19 +106,40 @@ tk.update()
 while 1:
 	
 	maxAmount = maxAmount + 1
+	AnyColourYouLike += 1
+	
+	if ( UsarSerial == True):
+		pass
+	else:
+		if ( AnyColourYouLike == 32 ):
+			AnyColourYouLike = 1
+	
+	if ( UsarSerial == True):
+		# The actual value from 0 to 32 is char
+		raw = ser.readline()
+		cc  = str(raw)
+		char = int((cc[2:][:-5]))
+		print ( char )
 	
 	if ( maxAmount == 32 ):
 		maxAmount = 0
 		for y in range (0,32):
 			GradientList[(31-y)].IsObjectHidden = 1
 			GradientList[(31-y)].draw(canvas)
-		
-		
+	
 	for y in range (0,maxAmount):
 		GradientList[(31-y)].IsObjectHidden = 0
 		GradientList[(31-y)].draw(canvas)
 	
+	LightSensorList[0].IsObjectHidden = 0
+	if ( UsarSerial == True):
+		LightSensorList[0].changeColour = char
+	else:
+		LightSensorList[0].changeColour = AnyColourYouLike	
+	LightSensorList[0].draw(canvas2)
+		
+	
 	tk.update_idletasks()
 	tk.update()
 
-	time.sleep(0.5)
+	time.sleep(0.1)
