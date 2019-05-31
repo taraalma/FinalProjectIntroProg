@@ -17,7 +17,7 @@ LightSensorList = []
 
 # Start program
 tk = Tk()
-tk.title("Monitor for sensing stuff")
+tk.title("Monitor for C828")
 
 # Insert frame
 frame = Frame(tk)
@@ -50,7 +50,7 @@ labelSpace8=Label(frame, text="",height=1,width=5).grid(row=ROW_3,column=COLUMN_
 labelSpace7=Label(frame, text="",height=1,width=5).grid(row=ROW_4,column=COLUMN_2)
 labelSpace6=Label(frame, text="",height=1,width=5).grid(row=ROW_5,column=COLUMN_2)
 labelSpace5=Label(frame, text="",height=3,width=5).grid(row=ROW_6,column=COLUMN_2)
-label3=Label( frame, text="Light sensor", anchor= SE,bg='#F0F0F0').grid(row=ROW_7,column=COLUMN_2, sticky="E")
+label3=Label( frame, text="", anchor= SE,bg='#F0F0F0').grid(row=ROW_7,column=COLUMN_2, sticky="E")
 
 
 tk.update()
